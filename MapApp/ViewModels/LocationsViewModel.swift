@@ -18,17 +18,28 @@ class LocationsViewModel {
     var mapLocation: Location {
         didSet {
             updateMapRegion(location: mapLocation)
+            updateMapPosition()
         }
     }
     
+    //current region on map
     var mapRegion = MKCoordinateRegion()
     let mapSpan = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
+    
+    var mapPosition = MapCameraPosition.region(MKCoordinateRegion())
+
+    
+    //show list of locations
+    var showLocationsList: Bool = false
+    
+    
     
     init() {
         let locations = LocationsDataService.locations
         self.locations = locations
         self.mapLocation = locations.first!
         self.updateMapRegion(location: locations.first!)
+        self.updateMapPosition()
     }
     
     private func updateMapRegion(location: Location) {
@@ -37,6 +48,25 @@ class LocationsViewModel {
                 center: location.coordinates,
                 span: mapSpan
             )
+        }
+    }
+    
+    private func updateMapPosition() {
+        withAnimation(.easeInOut) {
+            mapPosition = MapCameraPosition.region(mapRegion)
+        }
+    }
+    
+    func toggleLocationsList() {
+        withAnimation(.easeInOut) {
+            showLocationsList = !showLocationsList
+        }
+    }
+    
+    func showNextLocation(location: Location) {
+        withAnimation {
+            mapLocation = location
+            showLocationsList = false
         }
     }
 }

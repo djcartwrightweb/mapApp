@@ -14,7 +14,7 @@ struct MapAppApp: App {
     
     var body: some Scene {
         WindowGroup {
-            LocationsView()
+            LocationsView(vm: viewModel)
                 .environment(viewModel)
         }
     }
