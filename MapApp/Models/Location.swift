@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 import MapKit
 
 struct Location: Identifiable {
@@ -18,5 +19,9 @@ struct Location: Identifiable {
     
     var id: String {
         name + cityName
+    }
+    
+    var region: MKCoordinateRegion {
+        MKCoordinateRegion(center: self.coordinates, span: MKCoordinateSpan(latitudeDelta: 1, longitudeDelta: 1))
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import MapKit
 
 
 
@@ -14,14 +15,10 @@ struct LocationsView: View {
     @Environment(LocationsViewModel.self) private var vm
     
     var body: some View {
-        VStack {
-            List {
-                ForEach(vm.locations) {
-                    Text($0.name)
-                }
-            }.listStyle(.inset)
+        ZStack {
+            Map(initialPosition: MapCameraPosition.region(vm.mapRegion))
+            
         }
-        .padding()
     }
 }
 

@@ -22,3 +22,4 @@ struct MapAppApp: App {
 
 //Developer singleton for viewmodel for previes
 //@Observable
+//Map updated to ios 18
