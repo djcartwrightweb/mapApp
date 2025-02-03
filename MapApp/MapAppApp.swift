@@ -9,9 +9,16 @@ import SwiftUI
 
 @main
 struct MapAppApp: App {
+    
+    @State private var viewModel = LocationsViewModel()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            LocationsView()
+                .environment(viewModel)
         }
     }
 }
+
+//Developer singleton for viewmodel for previes
+//@Observable
