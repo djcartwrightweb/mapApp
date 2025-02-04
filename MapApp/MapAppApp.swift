@@ -23,3 +23,8 @@ struct MapAppApp: App {
 //Developer singleton for viewmodel for previes
 //@Observable
 //Map updated to ios 18
+
+//To add / change:
+//Channel Islands sites
+//click off header list closes it
+//change colors and styles
