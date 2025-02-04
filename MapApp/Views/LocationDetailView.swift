@@ -44,7 +44,7 @@ struct LocationDetailView: View {
                 Image($0)
                     .resizable()
                     .scaledToFill()
-                    .frame(width: UIScreen.main.bounds.width)
+                    .frame(width: UIDevice.current.userInterfaceIdiom == .pad ? nil : UIScreen.main.bounds.width)
                     .clipped()
             }
         }
@@ -98,7 +98,7 @@ struct LocationDetailView: View {
                 LocationMapAnnotationView()
             }
         }
-        .allowsTightening(false)
+        .allowsHitTesting(false)
         .aspectRatio(1, contentMode: .fit)
         .clipShape(RoundedRectangle(cornerRadius: 30))
     }
@@ -111,7 +111,7 @@ struct LocationDetailView: View {
             Image(systemName: "xmark")
                 .font(.headline)
                 .padding(16)
-                .tint(.black)
+                .tint(.secondary)
                 .background(.thickMaterial)
                 .clipShape(RoundedRectangle(cornerRadius: 10))
                 .shadow(radius: 4)

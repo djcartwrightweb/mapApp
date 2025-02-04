@@ -13,7 +13,7 @@ import MapKit
 struct LocationsView: View {
     
     @Bindable private var vm: LocationsViewModel
-    
+    let maxWidthForIpad: CGFloat = 700
     
     init(vm: LocationsViewModel) {
         self.vm = vm
@@ -30,14 +30,34 @@ struct LocationsView: View {
                 
                 header
                     .padding()
+                    .frame(maxWidth: maxWidthForIpad)
                 
                 Spacer()
                 
                 locationsPreviewStack
             }
         }
-        .sheet(item: $vm.sheetLocation, onDismiss: nil) { location in
-            LocationDetailView(location: location)
+        .customCover(item: $vm.sheetLocation)
+        
+    }
+    
+}
+
+struct CustomCover: ViewModifier {
+    
+    let item: Binding<Location?>
+    
+    func body(content: Content) -> some View {
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            content
+                .fullScreenCover(item: item, onDismiss: nil) { location in
+                    LocationDetailView(location: location)
+                }
+        } else {
+            content
+                .sheet(item: item, onDismiss: nil) { location in
+                    LocationDetailView(location: location)
+                }
         }
     }
 }
@@ -47,8 +67,16 @@ struct LocationsView: View {
         .environment(Developer.shared.locationVm)
 }
 
+extension View {
+    func customCover(item: Binding<Location?>) -> some View {
+        modifier(CustomCover(item: item))
+    }
+}
+
 
 extension LocationsView {
+    
+
     
     private var header: some View {
         
@@ -117,6 +145,7 @@ extension LocationsView {
                     LocationPreviewView(location: location)
                         .shadow(radius: 20)
                         .padding()
+                        .frame(maxWidth: maxWidthForIpad)
                         .transition(.scale(scale: 0.2))
                 }
             }
