@@ -31,8 +31,9 @@ class LocationsViewModel {
     
     //show list of locations
     var showLocationsList: Bool = false
-    
-    
+
+    //show location detail via sheet
+    var sheetLocation: Location? = nil
     
     init() {
         let locations = LocationsDataService.locations
